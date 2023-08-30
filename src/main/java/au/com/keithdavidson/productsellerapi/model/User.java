@@ -35,4 +35,5 @@ public class User {
     // when created
     @Column(name = "create_time", nullable = false)
     private LocalDateTime createTime;
+
 }
