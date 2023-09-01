@@ -10,3 +10,12 @@ It is a project working along with the course.<br>
 Product Seller API.
 
 TODO
+
+## Tech
+
+Spring Boot  
+Spring Web (REST, Spring MVC)  
+Spring Security  
+Spring Data JPA / Hibernate  
+Lombok  
+MySQL  
