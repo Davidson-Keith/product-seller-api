@@ -1,8 +1,12 @@
 package au.com.keithdavidson.productsellerapi.security;
 
+import au.com.keithdavidson.productsellerapi.model.Role;
+import au.com.keithdavidson.productsellerapi.security.jwt.JwtAthorizationFilter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -42,8 +47,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/api/authentication/**").permitAll() // "**" = wild card.
                 .anyRequest().authenticated();
+
+        // Add authorization filter before authentication filter??? Shouldn't it be the other way around? Don't we have
+        // to know who it is before giving them privileges?
+        http.addFilterBefore(jwtAthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
+    // Why a Bean and not a component? Because it is only related to the security scope, thus it doesn't need to be a
+    // component?? I have no idea what he is trying to say here.
+    @Bean
+    public JwtAthorizationFilter jwtAthorizationFilter(){
+        return new JwtAthorizationFilter();
+    }
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -96,3 +111,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 ////        return http.build();
 ////    }
 //}
+
+
