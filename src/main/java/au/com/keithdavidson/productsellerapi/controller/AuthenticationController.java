@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/authentication")
+@RequestMapping("/api/authentication") // Path prefix
 public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
@@ -22,7 +22,7 @@ public class AuthenticationController {
     private UserService userService;
 
     @PostMapping("sign-up") // /api/authentication/sign-up
-    public ResponseEntity<?> signUp(@RequestBody User user){
+    public ResponseEntity<?> signUp(@RequestBody User user) {
         if(userService.findByUserName(user.getName()).isPresent()){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -30,7 +30,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("sign-in") // /api/authentication/sign-in
-    public ResponseEntity<?> signIn(@RequestBody User user){
+    public ResponseEntity<?> signIn(@RequestBody User user) {
         return new ResponseEntity<>(authenticationService.signInAndReturnJWT(user), HttpStatus.OK);
     }
 }

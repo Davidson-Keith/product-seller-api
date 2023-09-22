@@ -22,6 +22,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
+@Component
 public class JwtProviderImpl implements JwtProvider {
     @Value("${app.jwt.secret}")
     private String JWT_SECRET;

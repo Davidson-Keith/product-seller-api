@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+    // Why don't we autowire this?
     private final ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository productRepository) {
