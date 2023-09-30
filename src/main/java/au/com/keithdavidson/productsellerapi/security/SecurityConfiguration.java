@@ -45,8 +45,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable(); // Cross Site Request Forgery disabled because we are using JWT, which doesn't need it.
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // No session will be created or used by Spring Security.
         http.authorizeRequests()
-                .antMatchers("/api/authentication/**").permitAll() // "**" = wild card.
-                .anyRequest().authenticated();
+            .antMatchers("/api/authentication/**").permitAll() // "**" = wild card. sign-up, and sign-in allowed by anyone.
+            .antMatchers(HttpMethod.GET, "api/product/**").permitAll() // All Product GET methods allowed by anyone,
+            // NOT WORKING, everyone can create or delete Product!!!
+            .antMatchers("api/product/**").hasRole(Role.ADMIN.name()) // But any other Product methods (delete and save) by ADMIN only.
+            .antMatchers("api/purchase/**").permitAll()
+//            .antMatchers("api/purchase/**").hasRole(Role.ADMIN.name()) // All Purchase methods by ADMIN only.
+            .anyRequest().authenticated();
 
         // Add authorization filter before authentication filter??? Shouldn't it be the other way around? Don't we have
         // to know who it is before giving them privileges?

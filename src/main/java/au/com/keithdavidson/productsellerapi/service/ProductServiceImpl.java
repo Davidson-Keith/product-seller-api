@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -25,6 +26,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(Long id){
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Product> findById(Long id) {
+        return productRepository.findById(id);
+    }
+
+    @Override
+    public Optional<Product> findByName(String name) {
+        return productRepository.findByName(name);
     }
 
     @Override
