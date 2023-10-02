@@ -20,7 +20,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public User signInAndReturnJWT(User signInRequestUser){
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(signInRequestUser.getUserName(), signInRequestUser.getPassword())
+                new UsernamePasswordAuthenticationToken(signInRequestUser.getUsername(), signInRequestUser.getPassword())
         );
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         String jwt = jwtProvider.generateToken(userPrincipal);

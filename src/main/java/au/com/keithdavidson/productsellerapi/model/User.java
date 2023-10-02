@@ -17,7 +17,7 @@ public class User {
 
     // Unique login user name
     @Column(name= "username", unique = true, nullable = false, length = 100)
-    private String userName;
+    private String username;
 
     // login password
     @Column(name = "password", nullable = false)

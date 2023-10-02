@@ -20,7 +20,10 @@ public class UserPrincipal implements UserDetails {
     private Long id;
     private String username;
     transient private String password; // transient: doesn't show up on serialized places.
-    transient private User user; // Not best practice. Demonstration only. User only for login, don't use for JWT.
+
+    // Not best practice. Demonstration only. User only for login, don't use for JWT.
+    // Ok, so what is best practice then?
+    transient private User user;
     private Set<GrantedAuthority> authorities;
 
     @Override

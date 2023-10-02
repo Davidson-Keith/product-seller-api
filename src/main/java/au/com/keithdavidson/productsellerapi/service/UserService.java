@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface UserService {
     User saveUser(User user);
 
-    Optional<User> findByUserName(String userName);
+    Optional<User> findByUsername(String username);
 
-    void changeRole(Role newRole, String userName);
+    void changeRole(Role newRole, String username);
 }

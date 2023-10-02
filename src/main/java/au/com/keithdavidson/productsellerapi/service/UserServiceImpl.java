@@ -31,13 +31,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findByUserName(String userName){
-        return userRepository.findByUserName(userName);
+    public Optional<User> findByUsername(String username){
+        return userRepository.findByUsername(username);
     }
 
     @Override
     @Transactional
-    public void changeRole(Role newRole, String userName){
-        userRepository.updateUserRole(userName, newRole);
+    public void changeRole(Role newRole, String username){
+        userRepository.updateUserRole(username, newRole);
     }
 }

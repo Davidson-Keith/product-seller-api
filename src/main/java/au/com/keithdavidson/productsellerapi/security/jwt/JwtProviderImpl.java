@@ -31,15 +31,17 @@ public class JwtProviderImpl implements JwtProvider {
     private Long JWT_EXPIRATION_IN_MS;
 
     @Override
-    public String generateToken(UserPrincipal auth){
-        String authorities = auth.getAuthorities().stream()
+    public String generateToken(UserPrincipal userPrincipal){
+        String authorities = userPrincipal.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
+        System.out.println("JwtProviderImpl.generateToken.authorities = " + authorities);
         Key key = Keys.hmacShaKeyFor(JWT_SECRET.getBytes(StandardCharsets.UTF_8));
+        System.out.println("JwtProviderImpl.generateToken.key.toString = " + key.toString());
         return Jwts.builder()
-                .setSubject(auth.getUsername())
+                .setSubject(userPrincipal.getUsername())
                 .claim("roles", authorities)
-                .claim("userId", auth.getId())
+                .claim("userId", userPrincipal.getId())
                 .setExpiration(new Date((System.currentTimeMillis() + JWT_EXPIRATION_IN_MS)))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();

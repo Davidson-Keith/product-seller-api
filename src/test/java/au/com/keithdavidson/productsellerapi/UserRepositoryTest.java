@@ -32,7 +32,7 @@ public class UserRepositoryTest {
         user.setName("Test Name");
         user.setPassword("pw");
         user.setRole(Role.USER);
-        user.setUserName("Test Username2");
+        user.setUsername("Test Username2");
         user.setCreateTime(LocalDateTime.now());
         userRepository.save(user);
     }
